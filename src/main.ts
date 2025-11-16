@@ -1,4 +1,10 @@
 import { i18n } from './i18n/i18n';
+import { addMonthsUTC } from './utils/dates';
+import { countDaysHandler } from './utils/count';
+
+const startInput = document.getElementById('option1') as HTMLInputElement | null;
+const endInput = document.getElementById('option2') as HTMLInputElement | null;
+const locale: 'en' | 'es' = (navigator.language?.startsWith('es') ? 'es' : 'en');
 
 function applyTranslations() {
     const subtitleEl = document.getElementById('subtitle');
@@ -40,41 +46,21 @@ function hideResult(){
     if (resultBoxEl) resultBoxEl.style.display = "none"
 }
 
-function showResult(){
-    const resultBoxEl = document.getElementById("result-box")
-    if (resultBoxEl) resultBoxEl.style.display = "flex"
-}
 
-const formEl = document.getElementById("form")
-if (formEl) {
-    formEl.addEventListener("submit", (e) => {
-        e.preventDefault()
-        countDays()}
-    )
-}
-
-
-
-function countDays() {
-    const option1El = document.getElementById('option1');
-    const option2El = document.getElementById('option2');
-    if (option1El && option2El) {
-        
-        const option1 = new Date((option1El as HTMLInputElement).value);
-        const option2 = new Date((option2El as HTMLInputElement).value);
-        if (isNaN(option1.getTime()) || isNaN(option2.getTime())) {
-            alert('Invalid date');
-            return;
-        }
-        const diffTime = Math.abs(option2.getTime() - option1.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        const resultEl = document.getElementById('result');
-        if (resultEl) {
-            resultEl.textContent = `${diffDays} ${i18n.t('days')}`;
-            showResult()
-        }
-    }   
-}
+if (startInput && endInput) {
+    const today = new Date();
+    const ymdFromDate = (d: Date) =>
+      `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+  
+    startInput.value = ymdFromDate(new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())));
+    endInput.value = ymdFromDate(addMonthsUTC(new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())), 1));
+  
+    const form = document.getElementById('form');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      countDaysHandler(locale as 'en'|'es');
+    });
+  }
 
 
 const clearButtonEl = document.getElementById("clear")
