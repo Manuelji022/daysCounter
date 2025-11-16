@@ -4,6 +4,10 @@ import es from './es.json';
 type Language = 'en' | 'es';
 type TranslationsKey = typeof en;
 
+interface ExtendedNavigator extends Navigator {
+    userLanguage?: string;
+}
+
 const translations: Record<Language, TranslationsKey> = {
     en,
     es
@@ -20,7 +24,7 @@ class I18n {
         // Check if we're in a browser environment
         if (typeof navigator !== 'undefined') {
             // Get browser's preferred language
-            const browserLang = navigator.language || (navigator as any).userLanguage;
+            const browserLang = navigator.language || (navigator as ExtendedNavigator).userLanguage;
             
             // Check if browser language starts with 'es' (covers es, es-ES, es-MX, etc.)
             if (browserLang && browserLang.toLowerCase().startsWith('es')) {
