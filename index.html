@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/src/styles.css" />
     <title>Day Counter</title>
   </head>
   <body>
@@ -27,10 +28,14 @@
         <form id="form">
           <input type="date" id="option1" placeholder="Today" required />
           <input type="date" id="option2" placeholder="Target date" required />
-          <button type="submit" id="submit" aria-label="Count days"></button>
+          <div class="button-container">
+            <button type="submit" id="submit" aria-label="Count days"></button>
+            <button id="clear" type="button" aria-label="Clear form"></button>
+          </div>
         </form>
-        <p id="result"></p>
-        <button id="clear" type="button" aria-label="Clear form"></button>
+        <div class="result-box">
+          <p id="result"></p>
+        </div>
         <footer id="footer">
           <p id="footerText"></p>
         </footer>
