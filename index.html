@@ -21,13 +21,19 @@
     <div class="max-width-wrapper">
       <header>
         <h1 id="title">Day Counter</h1>
-        <p id="subtitle"></p>
       </header>
       <main>
-        <p id="subtitle2"></p>
         <form id="form">
-          <input type="date" id="option1" placeholder="Today" required />
-          <input type="date" id="option2" placeholder="Target date" required />
+          <label id="subtitle2"></label>
+          <div class="dates-container">
+            <input type="date" id="option1" placeholder="Today" required />
+            <input
+              type="date"
+              id="option2"
+              placeholder="Target date"
+              required
+            />
+          </div>
           <div class="button-container">
             <button type="submit" id="submit" aria-label="Count days"></button>
             <button id="clear" type="button" aria-label="Clear form"></button>
