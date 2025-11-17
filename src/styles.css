@@ -283,6 +283,6 @@ footer {
 
 @media (max-width: 640px) {
   footer {
-    bottom: 20%;
+    bottom: 5%;
   }
 }
